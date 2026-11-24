@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>사진이 도착했어요 · FotoMania</title>
+<meta name="description" content="FotoMania로 공유된 앨범이에요. 함께 보고 ♥ · 댓글로 소통해요.">
+<meta property="og:title" content="📸 사진이 도착했어요 · FotoMania">
+<meta property="og:description" content="FotoMania로 공유된 앨범이에요. 함께 보고 ♥ · 댓글로 소통해요.">
+<meta property="og:image" content="icons/icon-512.png">
+<meta name="theme-color" content="#f3ece0">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Gowun+Dodum&display=swap">
+<style>
+  :root { --bg: #f3ece0; --panel: #fbf7ef; --ink: #3b3127; --muted: #8a7c6b; --line: #e2d6c2; --accent: #e46f4f; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--ink); font-family: "Gowun Dodum", -apple-system, "Apple SD Gothic Neo", sans-serif; }
+  #app { position: fixed; inset: 0; width: 100%; height: 100%; border: 0; display: none; background: var(--bg); }
+  body.run #app { display: block; }
+  body.run #card { display: none; }
+  #card { max-width: 440px; margin: 0 auto; padding: calc(30px + env(safe-area-inset-top)) 20px 32px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; margin-bottom: 22px; }
+  .logo img { width: 40px; height: 40px; border-radius: 11px; box-shadow: 0 4px 12px rgba(70, 50, 30, .18); }
+  .logo b { font-family: "Gaegu", cursive; font-size: 26px; }
+  .logo small { color: var(--muted); font-size: 12px; margin-left: auto; }
+  .polaroids { position: relative; height: 150px; margin: 6px 0 22px; }
+  .polaroids i { position: absolute; top: 10px; width: 108px; height: 128px; background: #fff; padding: 7px 7px 26px; box-shadow: 0 8px 20px rgba(70, 50, 30, .2); border-radius: 2px; }
+  .polaroids i::before { content: ''; display: block; height: 100%; border-radius: 1px; background: var(--c); }
+  .polaroids i:nth-child(1) { left: calc(50% - 150px); transform: rotate(-9deg); --c: linear-gradient(160deg, #f6c7a8, #e48f6f); }
+  .polaroids i:nth-child(2) { left: calc(50% - 54px); top: 0; transform: rotate(2deg); --c: linear-gradient(160deg, #a8d1f6, #6f9fe4); z-index: 1; }
+  .polaroids i:nth-child(3) { left: calc(50% + 42px); transform: rotate(10deg); --c: linear-gradient(160deg, #c3e8b8, #7fbf8a); }
+  h1 { font-family: "Gaegu", cursive; font-size: 34px; margin: 0 0 6px; text-align: center; }
+  p { color: var(--muted); line-height: 1.7; font-size: 14px; text-align: center; margin: 0 0 18px; }
+  .box { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px; box-shadow: 0 4px 16px rgba(70, 50, 30, .08); }
+  #gbtn { display: flex; justify-content: center; min-height: 44px; }
+  .or { text-align: center; color: var(--muted); font-size: 12px; margin: 14px 0 10px; }
+  button.name { width: 100%; padding: 13px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); font: inherit; font-size: 15px; cursor: pointer; }
+  .why { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; line-height: 1.6; }
+  .err { color: #c0392b; text-align: center; }
+  .about { display: block; text-align: center; margin-top: 18px; color: var(--accent); font-size: 13px; text-decoration: none; font-weight: 600; }
+  /* 앨범 안에서 「구글로 로그인」을 누르면 위에 뜨는 창 */
+  #over { position: fixed; inset: 0; background: rgba(40, 30, 20, .45); display: none; place-items: center; z-index: 5; padding: 20px; }
+  #over.on { display: grid; }
+  #over .box { width: 100%; max-width: 360px; text-align: center; }
+  #over h2 { font-size: 18px; margin: 0 0 8px; }
+  #over .x { margin-top: 12px; background: none; border: 0; color: var(--muted); font: inherit; cursor: pointer; }
+</style>
+</head>
+<body>
+<div id="card">
+  <a class="logo" href="./" title="FotoMania 소개"><img src="icons/icon-192.png" alt=""><b>FotoMania</b><small>사진 공유 · 함께 소통</small></a>
+  <div class="polaroids"><i></i><i></i><i></i></div>
+  <h1>사진이 도착했어요 📸</h1>
+  <p id="lead">FotoMania로 공유된 앨범이에요.<br>함께 보고 마음에 드는 사진엔 ♥, 하고 싶은 말은 댓글로 남겨요.</p>
+  <div class="box" id="box">
+    <div id="gwrap"><div id="gbtn"></div><div class="why">구글로 로그인하면 내 이름에 <b style="color:#2f7bf6">✓</b>가 붙어서 다른 사람이 흉내 낼 수 없어요.<br>FotoMania는 이름과 프로필 사진만 받아요.</div><div class="or">또는</div></div>
+    <button class="name" id="nameOnly">이름만 적고 들어가기</button>
+  </div>
+  <a class="about" href="./">FotoMania가 뭐예요? 나도 써 보기 ›</a>
+</div>
+<div id="over"><div class="box"><h2>구글로 로그인</h2><p style="margin-bottom:14px">이름 옆에 ✓가 붙고, 다른 기기에서도 같은 이름으로 들어와요.</p><div id="gbtn2" style="display:flex;justify-content:center;min-height:44px"></div><button class="x" id="overX">닫기</button></div></div>
+<iframe id="app" title="FotoMania 앨범" allow="clipboard-read; clipboard-write; fullscreen; web-share" referrerpolicy="no-referrer"></iframe>
+
+<script src="config.js"></script>
+<script>
+  /* 링크: go.html#d=<웹 앱 배포 ID>&s=<공유 토큰>[&login=1]  (해시라서 서버 기록에 안 남아요) */
+  var H = {};
+  location.hash.replace(/^#/, '').split('&').forEach(function (kv) { var i = kv.indexOf('='); if (i > 0) H[kv.slice(0, i)] = decodeURIComponent(kv.slice(i + 1)); });
+  var dep = /^[\w-]{10,}$/.test(H.d || '') ? H.d : '', tok = /^[\w-]{10,}$/.test(H.s || '') ? H.s : '';
+  var CID = (window.FM && FM.clientId) || '';
+  var appWin = null, pending = null, appOrigin = '*';
+  var KEY = 'fm-go-' + tok;
+  function remember(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+  function recall() { try { return localStorage.getItem(KEY) || ''; } catch (e) { return ''; } }
+
+  function openAlbum() {
+    var f = document.getElementById('app'), url = 'https://script.google.com/macros/s/' + dep + '/exec?s=' + tok;
+    if (f.getAttribute('src') !== url) f.setAttribute('src', url);
+    document.body.className = 'run';
+  }
+  /* 앨범(구글 Apps Script 화면)과 이야기: hello → site, 로그인 부탁 → 창, 토큰 → 앨범으로 */
+  function send(msg) { if (appWin) try { appWin.postMessage(msg, appOrigin); } catch (e) {} }
+  window.addEventListener('message', function (e) {
+    var m = e.data;
+    if (!m || typeof m !== 'object' || !/^https:\/\/[\w.-]+\.googleusercontent\.com$/.test(e.origin)) return;
+    if (m.fm === 'hello') {
+      appWin = e.source; appOrigin = e.origin;
+      send({ fm: 'site' });
+      if (pending) { send({ fm: 'cred', credential: pending }); pending = null; }
+    } else if (m.fm === 'login') {
+      document.getElementById('over').classList.add('on');
+      renderG('gbtn2');
+    }
+  });
+  function onCred(resp) {
+    if (!resp || !resp.credential) return;
+    remember('google');
+    document.getElementById('over').classList.remove('on');
+    if (appWin) send({ fm: 'cred', credential: resp.credential });
+    else { pending = resp.credential; openAlbum(); }
+  }
+  var gReady = false;
+  function renderG(id) {
+    if (!CID || !window.google || !google.accounts) return;
+    if (!gReady) { google.accounts.id.initialize({ client_id: CID, callback: onCred, ux_mode: 'popup', auto_select: false, itp_support: true, use_fedcm_for_prompt: true }); gReady = true; }
+    var el = document.getElementById(id); el.innerHTML = '';
+    google.accounts.id.renderButton(el, { type: 'standard', theme: 'outline', size: 'large', shape: 'pill', text: 'signin_with', locale: 'ko', width: 280 });
+  }
+
+  if (!dep || !tok) {
+    document.getElementById('lead').innerHTML = '<span class="err">링크가 올바르지 않아요.<br>받은 링크를 그대로 열어 주세요.</span>';
+    document.getElementById('box').style.display = 'none';
+  } else {
+    document.getElementById('nameOnly').onclick = function () { remember('name'); openAlbum(); };
+    document.getElementById('overX').onclick = function () { document.getElementById('over').classList.remove('on'); };
+    var wantLogin = H.login === '1', seen = recall();
+    if (seen && !wantLogin) openAlbum();               /* 두 번째부터는 바로 앨범으로 */
+    if (!CID) document.getElementById('gwrap').style.display = 'none';
+    else {
+      var s = document.createElement('script'); s.src = 'https://accounts.google.com/gsi/client'; s.async = true;
+      s.onload = function () { renderG('gbtn'); };
+      document.head.appendChild(s);
+    }
+  }
+  window.addEventListener('hashchange', function () { location.reload(); });   /* 다른 앨범 링크로 바뀌면 새로 */
+  if ('serviceWorker' in navigator) window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+</script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>나도 시작하기 · FotoMania</title>
+<meta name="description" content="구글 계정만 있으면 5분이면 나만의 FotoMania를 시작해요.">
+<meta name="theme-color" content="#f3ece0">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&family=Gowun+Dodum&display=swap">
+<style>
+  :root { --bg: #f3ece0; --panel: #fbf7ef; --ink: #3b3127; --muted: #8a7c6b; --line: #e2d6c2; --accent: #e46f4f; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font-family: "Gowun Dodum", -apple-system, "Apple SD Gothic Neo", sans-serif; line-height: 1.7; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: calc(20px + env(safe-area-inset-top)) 20px 40px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; color: inherit; font-family: "Gaegu", cursive; font-size: 24px; font-weight: 700; }
+  .logo img { width: 34px; height: 34px; border-radius: 10px; }
+  h1 { font-family: "Gaegu", cursive; font-size: 42px; margin: 24px 0 4px; }
+  .lead { color: var(--muted); margin: 0 0 24px; }
+  .need { background: #fff; border: 1px dashed var(--line); border-radius: 14px; padding: 12px 16px; font-size: 14px; color: var(--muted); margin-bottom: 22px; }
+  ol.steps { list-style: none; padding: 0; margin: 0; counter-reset: s; }
+  ol.steps > li { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 18px 18px 16px 62px; margin-bottom: 14px; position: relative; box-shadow: 0 4px 14px rgba(70, 50, 30, .06); }
+  ol.steps > li::before { counter-increment: s; content: counter(s); position: absolute; left: 16px; top: 16px; width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #fff; font-weight: 700; display: grid; place-items: center; }
+  li h3 { margin: 0 0 4px; font-size: 17px; }
+  li p, li ul { margin: 0 0 8px; color: var(--muted); font-size: 14px; }
+  li ul { padding-left: 18px; }
+  kbd, .k { background: #fff; border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; font-family: inherit; font-size: 13px; color: var(--ink); white-space: nowrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; background: var(--accent); color: #fff; text-decoration: none; font-weight: 700; font-size: 14px; border: 0; }
+  .btn.off { background: #cbbfae; pointer-events: none; }
+  .tip { font-size: 12px; background: #fff6e0; border-radius: 10px; padding: 8px 12px; color: #8a6a20; margin-top: 8px; }
+  .done { text-align: center; margin-top: 26px; }
+  .done a { color: var(--accent); font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a class="logo" href="./"><img src="icons/icon-192.png" alt="">FotoMania</a>
+  <h1>나도 FotoMania 시작하기</h1>
+  <p class="lead">내 구글 계정에 나만의 FotoMania를 만들어요. 처음 한 번, 약 5분이면 돼요.<br>사진은 내 구글 드라이브에 저장되고, 비용은 없어요.</p>
+  <div class="need">준비물: 구글 계정 하나 · 컴퓨터(처음 설정은 PC가 편해요) · 그 뒤로는 휴대폰으로도 다 돼요</div>
+
+  <ol class="steps">
+    <li>
+      <h3>FotoMania 복사하기</h3>
+      <p>아래 버튼을 누르면 내 구글 드라이브에 FotoMania 시트(앱 포함)가 복사돼요. 「사본 만들기」를 누르세요.</p>
+      <a class="btn" id="copy" href="#" target="_blank" rel="noopener">📋 내 드라이브에 복사</a>
+      <div class="tip" id="copyTip" hidden>복사용 시트를 준비하고 있어요. 조금만 기다려 주세요 🙏 (FotoMania를 알려 준 분께 링크를 부탁해도 돼요)</div>
+    </li>
+    <li>
+      <h3>웹 앱으로 배포하기</h3>
+      <p>복사한 시트에서 <span class="k">확장 프로그램 → Apps Script</span>를 열고, 오른쪽 위 <span class="k">배포 → 새 배포</span>를 눌러요.</p>
+      <ul>
+        <li>⚙ 유형 선택 → <b>웹 앱</b></li>
+        <li>실행 계정: <b>나</b> · 액세스 권한: <b>모든 사용자</b> → <b>배포</b></li>
+        <li>권한 창이 뜨면 내 계정 선택 → 「확인되지 않은 앱」이 나오면 <b>고급 → (프로젝트)로 이동 → 허용</b></li>
+        <li>나온 <b>웹 앱 URL</b>(…/exec 로 끝나요)을 복사해요</li>
+      </ul>
+      <div class="tip">「확인되지 않은 앱」은 내가 방금 복사한 내 앱이라서 나오는 안내예요. 내 드라이브·시트에만 접근해요.</div>
+    </li>
+    <li>
+      <h3>처음 설정</h3>
+      <p>시트로 돌아가 새로고침하면 위에 <span class="k">📸 FotoMania</span> 메뉴가 생겨요. <span class="k">📸 FotoMania → 처음 설정</span>을 누르고 복사한 웹 앱 주소를 붙여 넣어요.</p>
+    </li>
+    <li>
+      <h3>내 사진 앱 열기</h3>
+      <p><span class="k">📸 FotoMania → 📱 내 사진 앱 열기</span>에서 나온 링크가 <b>나만 쓰는 사진 앱</b>이에요. 이 링크는 남에게 보내지 마세요.</p>
+    </li>
+    <li>
+      <h3>휴대폰에 설치하기</h3>
+      <p>휴대폰에서 <a href="app.html">FotoMania 앱 화면</a>을 열고 위 링크를 한 번 붙여 넣은 다음, 홈 화면에 추가해요.</p>
+      <ul><li>아이폰: 사파리 아래 공유(□↑) → <b>홈 화면에 추가</b></li><li>안드로이드: 크롬 ⋮ → <b>앱 설치</b></li></ul>
+    </li>
+  </ol>
+  <div class="done">다 됐어요! 사진을 올리고 앨범에서 <b>💌 공유하기</b>를 눌러 보세요.<br><a href="./">← FotoMania 소개로</a></div>
+</div>
+<script src="config.js"></script>
+<script>
+  var u = (window.FM && FM.templateCopy) || '';
+  var a = document.getElementById('copy');
+  if (/^https:\/\/docs\.google\.com\/spreadsheets\/d\/[\w-]+\/copy/.test(u)) a.href = u;
+  else { a.classList.add('off'); a.textContent = '📋 준비 중이에요'; document.getElementById('copyTip').hidden = false; }
+</script>
+</body>
+</html>

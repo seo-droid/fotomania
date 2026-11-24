@@ -1,7 +1,7 @@
 /* FotoMania 시작 화면 서비스 워커: 시작 화면·아이콘만 저장해 두고(오프라인에서도 아이콘을 누르면 열려요),
    사진·데이터(구글)는 언제나 인터넷에서 받아요. */
-const CACHE = 'fotomania-shell-v1';
-const SHELL = ['./', './index.html', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png'];
+const CACHE = 'fotomania-shell-v2';
+const SHELL = ['./', './index.html', './app.html', './go.html', './start.html', './config.js', './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png', './icons/apple-touch-icon.png', './icons/favicon-32.png'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
